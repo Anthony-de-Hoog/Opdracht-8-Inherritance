@@ -1,30 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
-public class Elf : EnemyParent
+public class Elf : Unit, IMovable, IDamagable
 {
     private Renderer renderer; 
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void Initialize()
     {
         moveSpeed = 2;
-        hp = 5;
+        health = 5;
 
+        Move(); 
+        
         renderer = GetComponent<Renderer>();
 
-        // Start the ToggleVisibility coroutine
         StartCoroutine(ToggleVisibility());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Move();
-    }
-
     // Coroutine to toggle visibility every 3 seconds for 0.5 seconds
-    IEnumerator ToggleVisibility()
+    private IEnumerator ToggleVisibility()
     {
         while (true)  // Infinite loop to keep toggling visibility
         {
